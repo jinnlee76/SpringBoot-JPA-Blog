@@ -32,7 +32,6 @@ let index = {
 	                                       //생긴게 json이라면 javascript 오브젝트로 전환
 		}).done (function(resp){
 			alert("회원가입이 완료되었습니다.");
-			alert(resp);
 			location.href="/	";
 		}).fail(function(error){
 			alert(JSON.stringify(error));			
@@ -42,6 +41,7 @@ let index = {
 	update : function() {
 	   let data = {
 	        id : $(id).val(),
+	        username: $("#username").val(),
 			password: $("#password").val(),
 			email: $("#email").val()
 		};		
@@ -54,12 +54,11 @@ let index = {
 			  dataType: "json" //요청을 서버로해서 응답이 왔을때 기본적으로 string
 	                                       //생긴게 json이라면 javascript 오브젝트로 전환
 		}).done (function(resp){
-			alert("회원정보 수정이 완료되었습니다.");
-			location.href="/";
+			alert("회원정보 변경이 완료되었습니다.");
+			location.href="/	";
 		}).fail(function(error){
 			alert(JSON.stringify(error));			
-		}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청
+		});// ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청 
      } 
   }
-
 index.init();

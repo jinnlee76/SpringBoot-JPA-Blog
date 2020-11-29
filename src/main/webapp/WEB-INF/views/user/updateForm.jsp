@@ -24,11 +24,9 @@
 		<div class="form-group">
 			<label for="password">Password:</label> 
 			<input type="password"  class="form-control" placeholder="Enter password" id="password">
-		</div>
-		
-	<button id="btn-update" class="btn btn-primary">회원정보수정</button>
+		</div>	
 	</form>
-	
+	<button id="btn-update" class="btn btn-primary">회원정보수정</button>
 	
 </div>
 <script src="/js/user.js"></script>	
