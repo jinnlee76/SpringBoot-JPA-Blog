@@ -14,7 +14,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
@@ -41,7 +40,7 @@ public class Board {
 	@Lob
 	private String content; //섬머노트 라이브리러리, html태그가 섞여서 디자인됨
 	
-	@ColumnDefault("0")
+	//@ColumnDefault("0")
 	private int count;
 	
 	@ManyToOne(fetch=FetchType.EAGER) // Many = Board, User = One
