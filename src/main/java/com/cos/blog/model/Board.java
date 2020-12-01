@@ -3,6 +3,7 @@ package com.cos.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OrderBy;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,7 +51,10 @@ public class Board {
 	@JoinColumn(name="userId")
 	private User user; // DB는 오브젝트를 저장할 수 없다. FK, 자바는 오브젝트를 저장 할 수 있다.
 	
-	@OneToMany(mappedBy="board",fetch=FetchType.EAGER) //연관관계의 주인이 아니다. 난 FK가 아니다, DB에 만들지말아라
+	@OneToMany(mappedBy="board",fetch=FetchType.EAGER, cascade=CascadeType.REMOVE) 
+	//연관관계의 주인이 아니다. 난 FK가 아니다, DB에 만들지말아라
+	@JsonIgnoreProperties({"board"}) //board를 통해 접근하면 무한 루프를 방지
+	@OrderBy(clause = "id desc")
 	private List<Reply> reply;
 	
 	@CreationTimestamp

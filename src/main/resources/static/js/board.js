@@ -14,6 +14,10 @@ let index = {
 	     $("#btn-delete").on("click", () => { //function(){}, ()=> {} this를 바인딩하기위해서!!
 			this.deleteById();
 		});
+		
+		   $("#btn-reply-save").on("click", () => { //function(){}, ()=> {} this를 바인딩하기위해서!!
+			this.replySave();
+		});
 	},
 
 	save: function() {
@@ -35,7 +39,6 @@ let index = {
 	                                       //생긴게 json이라면 javascript 오브젝트로 전환
 		}).done (function(resp){
 			alert("글쓰기가 완료되었습니다.");
-			//alert(resp);
 			location.href="/	";
 		}).fail(function(error){
 			alert(JSON.stringify(error));			
@@ -71,7 +74,6 @@ let index = {
 	    let id =$("#id").text();
 		// ajax호출시 default가 비동기 호출
 		$.ajax({
-        // 회원가입 수행 요청
 	          type: "DELETE",
 	          url: "/api/board/"+id,
 			  dataType: "json" //요청을 서버로해서 응답이 왔을때 기본적으로 string
@@ -82,6 +84,30 @@ let index = {
 		}).fail(function(error){
 			alert(JSON.stringify(error));			
 		});// ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청 
-	}	 
+	},	 
+	
+	replySave: function(){ 
+		let data = {			 
+			userId: $("#userId").val(),
+			boardId = $("#boardId"),
+			content: $("#reply-content").val()
+		};
+		alert( `/api/board/${data.boardId}/reply`);
+		
+		// ajax호출시 default가 비동기 호출
+	$.ajax({
+	          type: "POST",
+	          url: `/api/board/${data.boardId}/reply`,
+              data: JSON.stringify(data), //http body데이터
+              contentType: "application/json; charset=utf-8", // body데이터 type
+			  dataType: "json" //요청을 서버로해서 응답이 왔을때 기본적으로 string
+	                                       //생긴게 json이라면 javascript 오브젝트로 전환
+		}).done (function(resp){
+			alert("댓글작성이 완료되었습니다.");
+			location.href=`/board/${data.boardId}`;
+		}).fail(function(error){
+			alert(JSON.stringify(error));			
+		}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청
+	}
 }
 index.init();
